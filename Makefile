@@ -74,7 +74,7 @@ CONFIG_RTW_SDIO_PM_KEEP_POWER = y
 ###################### Platform Related #######################
 # Jeston Nano Headers
 # /usr/src/linux-headers-4.9.140-tegra-ubuntu18.04_aarch64/kernel-4.9
-CONFIG_PLATFORM_I386_PC = y
+CONFIG_PLATFORM_I386_PC = n
 CONFIG_PLATFORM_ARM_RPI = n
 CONFIG_PLATFORM_ARM_JET_NANO = n
 CONFIG_PLATFORM_ANDROID_X86 = n
@@ -85,7 +85,7 @@ CONFIG_PLATFORM_ARM_PXA2XX = n
 CONFIG_PLATFORM_ARM_S3C6K4 = n
 CONFIG_PLATFORM_MIPS_RMI = n
 CONFIG_PLATFORM_RTD2880B = n
-CONFIG_PLATFORM_MIPS_AR9132 = n
+CONFIG_PLATFORM_MIPS_AR9132 = y
 CONFIG_PLATFORM_OPENWRT_NEO2 = n
 CONFIG_PLATFORM_RTK_DMP = n
 CONFIG_PLATFORM_MIPS_PLM = n
@@ -1071,7 +1071,7 @@ ifeq ($(CONFIG_PLATFORM_MIPS_AR9132), y)
 EXTRA_CFLAGS += -DCONFIG_BIG_ENDIAN
 ARCH := mips
 CROSS_COMPILE := mips-openwrt-linux-
-KSRC := /home/alex/test_openwrt/tmp/linux-2.6.30.9
+KSRC := /work/drivers/rt3070/linux-3.3.8/
 endif
 
 # This is how I built for openwrt Neo2 platform. --Ben

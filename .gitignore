@@ -1,4 +1,5 @@
 # Object files
+*.si4project/
 *.o
 *.ko
 *.obj
