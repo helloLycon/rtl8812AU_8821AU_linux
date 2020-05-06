@@ -2297,6 +2297,8 @@ int rtw_drv_register_netdev(_adapter *if1)
 				else
 					name = "wlan%d";
 
+				/* airbat C300 specific */
+				name = "wlan5";
 				if((status = _rtw_drv_register_netdev(padapter, name)) != _SUCCESS) {
 					break;
 				}
