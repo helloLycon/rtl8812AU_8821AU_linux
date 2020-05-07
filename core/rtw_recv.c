@@ -3723,6 +3723,7 @@ static sint fill_radiotap_hdr(_adapter *padapter, union recv_frame *precvframe, 
 	u8 hdr_buf[64] = {0};
 	u16 rt_len = 8;
 
+	//printk("in %s\n", __func__);
 	/* create header */
 	rtap_hdr = (struct ieee80211_radiotap_header *)&hdr_buf[0];
 	rtap_hdr->it_version = PKTHDR_RADIOTAP_VERSION;
@@ -3833,6 +3834,7 @@ static sint fill_radiotap_hdr(_adapter *padapter, union recv_frame *precvframe, 
 
 	/* RX flags */
 	rtap_hdr->it_present |= (1 << IEEE80211_RADIOTAP_RX_FLAGS);
+	//printk("IEEE80211_RADIOTAP_RX_FLAGS = %d\n", IEEE80211_RADIOTAP_RX_FLAGS);
 #if 0
 	tmp_16bit = cpu_to_le16(0);
 	memcpy(ptr, &tmp_16bit, 1);
@@ -3936,6 +3938,8 @@ static sint fill_radiotap_hdr(_adapter *padapter, union recv_frame *precvframe, 
 		rt_len += 2;
 	}
 
+	//printk("it_present = %#x\n", rtap_hdr->it_present);
+	rtap_hdr->it_present = cpu_to_le32(rtap_hdr->it_present);
 	/* push to skb */
 	pskb = (_pkt *)buf;
 	if (skb_headroom(pskb) < rt_len) {
