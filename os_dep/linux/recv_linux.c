@@ -541,6 +541,11 @@ int rtw_recv_monitor(_adapter *padapter, union recv_frame *precv_frame)
 	precvpriv = &(padapter->recvpriv);
 	pfree_recv_queue = &(precvpriv->free_recv_queue);
 
+	if(pattrib->crc_err) {
+		//printk("crc_err \n");
+		goto _recv_drop;
+	}
+
 	skb = precv_frame->u.hdr.pkt;
 	if (skb == NULL) {
 		DBG_871X("%s :skb==NULL something wrong!!!!\n", __func__);
