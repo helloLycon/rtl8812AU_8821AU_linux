@@ -1828,7 +1828,7 @@ static int rtw_wx_set_freq(struct net_device *dev,
 	struct mlme_ext_priv	*pmlmeext = &padapter->mlmeextpriv;
 	_func_enter_;
 
-	printk("===> %s(m = %d %#x)\n", __func__, wrqu->freq.m, wrqu->freq.m);
+	//printk("===> %s(m = %d %#x)\n", __func__, wrqu->freq.m, wrqu->freq.m);
 	RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_, ("+rtw_wx_set_freq\n"));
 
 	pmlmeext->cur_channel = wrqu->freq.m;
