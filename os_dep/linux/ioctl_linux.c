@@ -1824,10 +1824,17 @@ static int rtw_wx_set_freq(struct net_device *dev,
                            struct iw_request_info *info,
                            union iwreq_data *wrqu, char *extra)
 {
+	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
+	struct mlme_ext_priv	*pmlmeext = &padapter->mlmeextpriv;
 	_func_enter_;
 
+	printk("===> %s(m = %d %#x)\n", __func__, wrqu->freq.m, wrqu->freq.m);
 	RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_, ("+rtw_wx_set_freq\n"));
 
+	pmlmeext->cur_channel = wrqu->freq.m;
+	pmlmeext->cur_ch_offset = HAL_PRIME_CHNL_OFFSET_DONT_CARE;
+	pmlmeext->cur_bwmode = CHANNEL_WIDTH_40;
+	set_channel_bwmode(padapter, pmlmeext->cur_channel, pmlmeext->cur_ch_offset, pmlmeext->cur_bwmode);
 	_func_exit_;
 
 	return 0;
@@ -14769,6 +14776,7 @@ int rtw_ioctl(struct net_device *dev, struct ifreq *rq, int cmd)
 	struct iwreq *wrq = (struct iwreq *)rq;
 	int ret=0;
 
+	//printk("=====> in %s\n", __func__);
 	switch (cmd) {
 	case RTL_IOCTL_WPA_SUPPLICANT:
 		ret = wpa_supplicant_ioctl(dev, &wrq->u.data);

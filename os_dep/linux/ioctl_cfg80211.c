@@ -3438,6 +3438,7 @@ static int rtw_cfg80211_monitor_if_open(struct net_device *ndev)
 {
 	int ret = 0;
 
+	printk("=====> %s\n", __func__);
 	DBG_8192C("%s\n", __func__);
 
 	return ret;
@@ -3633,6 +3634,7 @@ static const struct net_device_ops rtw_cfg80211_monitor_if_ops = {
 	.ndo_set_multicast_list = rtw_cfg80211_monitor_if_set_multicast_list,
 #endif
 	.ndo_set_mac_address = rtw_cfg80211_monitor_if_set_mac_address,
+	//.ndo_do_ioctl = rtw_ioctl,
 };
 #endif
 
@@ -3648,6 +3650,7 @@ static int rtw_cfg80211_add_monitor_if(_adapter *padapter, char *name,
 	struct rtw_netdev_priv_indicator *pnpi;
 	struct rtw_wdev_priv *pwdev_priv = adapter_wdev_data(padapter);
 
+	printk("====> %s\n", __func__);
 	if (!name ) {
 		DBG_871X(FUNC_ADPT_FMT" without specific name\n", FUNC_ADPT_ARG(padapter));
 		ret = -EINVAL;

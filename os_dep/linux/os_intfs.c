@@ -640,6 +640,7 @@ static struct net_device_stats *rtw_net_get_stats(struct net_device *pnetdev)
 	struct xmit_priv *pxmitpriv = &(padapter->xmitpriv);
 	struct recv_priv *precvpriv = &(padapter->recvpriv);
 
+	//printk("===> %s line%d\n", __func__, __LINE__);
 	padapter->stats.tx_packets = pxmitpriv->tx_pkts;//pxmitpriv->tx_pkts++;
 	padapter->stats.rx_packets = precvpriv->rx_pkts;//precvpriv->rx_pkts++;
 	padapter->stats.tx_dropped = pxmitpriv->tx_drop;
@@ -789,6 +790,7 @@ int rtw_ndev_init(struct net_device *dev)
 {
 	_adapter *adapter = rtw_netdev_priv(dev);
 
+	printk("===> %s line%d\n", __func__, __LINE__);
 	DBG_871X_LEVEL(_drv_always_, FUNC_ADPT_FMT"\n", FUNC_ADPT_ARG(adapter));
 	strncpy(adapter->old_ifname, dev->name, IFNAMSIZ);
 	adapter->old_ifname[IFNAMSIZ-1] = '\0';
@@ -877,6 +879,7 @@ struct net_device *rtw_init_netdev(_adapter *old_padapter)
 
 	RT_TRACE(_module_os_intfs_c_,_drv_info_,("+init_net_dev\n"));
 
+	printk("===> %s line%d\n", __func__, __LINE__);
 	if(old_padapter != NULL)
 		pnetdev = rtw_alloc_etherdev_with_old_priv(sizeof(_adapter), (void *)old_padapter);
 	else
@@ -895,9 +898,11 @@ struct net_device *rtw_init_netdev(_adapter *old_padapter)
 	//pnetdev->init = NULL;
 
 #if (LINUX_VERSION_CODE>=KERNEL_VERSION(2,6,29))
+	printk("===> %s line%d\n", __func__, __LINE__);
 	DBG_871X("register rtw_netdev_ops to netdev_ops\n");
 	pnetdev->netdev_ops = &rtw_netdev_ops;
 #else
+	printk("===> %s line%d\n", __func__, __LINE__);
 	pnetdev->init = rtw_ndev_init;
 	pnetdev->uninit = rtw_ndev_uninit;
 	pnetdev->open = netdev_open;
@@ -906,6 +911,7 @@ struct net_device *rtw_init_netdev(_adapter *old_padapter)
 	pnetdev->set_mac_address = rtw_net_set_mac_address;
 	pnetdev->get_stats = rtw_net_get_stats;
 #ifdef CONFIG_WIRELESS_EXT
+	printk("===> %s line%d\n", __func__, __LINE__);
 	pnetdev->do_ioctl = rtw_ioctl;
 #endif
 #endif
@@ -2251,6 +2257,7 @@ static int _rtw_drv_register_netdev(_adapter *padapter, char *name)
 	int ret = _SUCCESS;
 	struct net_device *pnetdev = padapter->pnetdev;
 
+	printk("===> %s\n", __func__);
 	/* alloc netdev name */
 	rtw_init_netdev_name(pnetdev, name);
 
@@ -2283,6 +2290,7 @@ int rtw_drv_register_netdev(_adapter *if1)
 	int i, status = _SUCCESS;
 	struct dvobj_priv *dvobj = if1->dvobj;
 
+	printk("===> %s\n", __func__);
 	if(dvobj->iface_nums < IFACE_ID_MAX) {
 		for(i=0; i<dvobj->iface_nums; i++) {
 			_adapter *padapter = dvobj->padapters[i];
@@ -2440,6 +2448,7 @@ int netdev_open(struct net_device *pnetdev)
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(pnetdev);
 	struct pwrctrl_priv *pwrctrlpriv = adapter_to_pwrctl(padapter);
 
+	//printk("===> %s line%d\n", __func__, __LINE__);
 	if (pwrctrlpriv->bInSuspend == _TRUE) {
 		DBG_871X("+871x_drv - drv_open, bInSuspend=%d\n", pwrctrlpriv->bInSuspend);
 		return 0;
