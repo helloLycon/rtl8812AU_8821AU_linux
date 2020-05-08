@@ -1832,8 +1832,10 @@ static int rtw_wx_set_freq(struct net_device *dev,
 	RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_, ("+rtw_wx_set_freq\n"));
 
 	pmlmeext->cur_channel = wrqu->freq.m;
-	pmlmeext->cur_ch_offset = HAL_PRIME_CHNL_OFFSET_DONT_CARE;
-	pmlmeext->cur_bwmode = CHANNEL_WIDTH_40;
+	//pmlmeext->cur_ch_offset = HAL_PRIME_CHNL_OFFSET_DONT_CARE;
+	//pmlmeext->cur_bwmode = CHANNEL_WIDTH_40;
+
+	/* maintain orignal ch-off, bwmode */
 	set_channel_bwmode(padapter, pmlmeext->cur_channel, pmlmeext->cur_ch_offset, pmlmeext->cur_bwmode);
 	_func_exit_;
 
