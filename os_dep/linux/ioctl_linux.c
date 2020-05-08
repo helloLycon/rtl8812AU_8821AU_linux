@@ -1968,6 +1968,8 @@ static int rtw_wx_get_mode(struct net_device *dev, struct iw_request_info *a,
 		wrqu->mode = IW_MODE_ADHOC;
 	} else if(check_fwstate(pmlmepriv, WIFI_AP_STATE) == _TRUE) {
 		wrqu->mode = IW_MODE_MASTER;
+	} else if(check_fwstate(pmlmepriv, WIFI_MONITOR_STATE) == _TRUE) {
+		wrqu->mode = IW_MODE_MONITOR;
 	} else {
 		wrqu->mode = IW_MODE_AUTO;
 	}
